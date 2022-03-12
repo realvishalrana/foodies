@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { React, useEffect, useState } from "react";
+
 // require("dotenv").config();
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -28,7 +28,6 @@ function Popular() {
 
   return (
     <div>
-      return (
       <Wrapper>
         <h3>Popular Picks</h3>
         <Splide
@@ -36,7 +35,7 @@ function Popular() {
             perPage: 4,
             arrows: false,
             pagination: false,
-            // drag: "free",
+            drag: "free",
             gap: "5rem",
           }}
         >
@@ -46,7 +45,7 @@ function Popular() {
                 <Card>
                   <p>{recipe.title}</p>
                   <img src={recipe.image} alt={recipe.title}></img>
-                  <gredients />
+                  <Gredients />
                 </Card>
               </SplideSlide>
             );
@@ -93,7 +92,7 @@ const Card = styled.div`
   }
 `;
 
-const gredients = styled.div`
+const Gredients = styled.div`
   z-index: 3;
   position: absolute;
   width: 100%;
