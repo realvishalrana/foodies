@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import PlaceHolder from "./1.png";
+import { Link } from "react-router-dom";
+
 const Veggie = () => {
   const [veggie, setVeggie] = useState([]);
 
@@ -41,12 +43,14 @@ const Veggie = () => {
             return (
               <SplideSlide key={recipe.id}>
                 <Card>
-                  <p>{recipe.title}</p>
-                  <img
-                    src={recipe.image ? recipe.image : PlaceHolder}
-                    alt={recipe.title}
-                  ></img>
-                  <Gredients />
+                  <Link to={"/recipe/" + recipe.id}>
+                    <p>{recipe.title}</p>
+                    <img
+                      src={recipe.image ? recipe.image : PlaceHolder}
+                      alt={recipe.title}
+                    ></img>
+                    <Gredients />
+                  </Link>
                 </Card>
               </SplideSlide>
             );

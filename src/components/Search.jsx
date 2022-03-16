@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+// npm install history@5 react-router-dom@6
 
 function Search() {
   const [input, setInput] = useState("");
@@ -23,13 +24,12 @@ function Search() {
           type="text"
           value={input}
         />
-        <h1>{input}</h1>
       </div>
     </FormStyle>
   );
 }
 
-const FormStyle = styled.div`
+const FormStyle = styled.form`
   margin: 0rem 20rem;
   div {
     position: relative;
