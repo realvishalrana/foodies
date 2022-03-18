@@ -1,29 +1,27 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import React from "react"
+import { useState, useEffect } from "react"
+import styled from "styled-components"
+import { useParams } from "react-router-dom"
 
 function Recipie() {
-  const [details, setDetails] = useState({});
-  const [activeTab, setActiveTab] = useState("instructions");
-  let params = useParams();
+  const [details, setDetails] = useState({})
+  const [activeTab, setActiveTab] = useState("instructions")
+  let params = useParams()
 
   useEffect(() => {
     const fetchDetails = async () => {
       const data = await fetch(
         `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_RECIPES_API}`
-      );
-      const detailsData = await data.json();
-      setDetails(detailsData);
+      )
+      const detailsData = await data.json()
+      setDetails(detailsData)
       // console.log(detailsData);
-    };
+    }
     //ingredients not work
     if (params.name) {
-      fetchDetails();
+      fetchDetails()
     }
-  }, [params.name]);
-
-  console.log(details.extendedIngredients);
+  }, [params.name])
 
   return (
     <DetailWrapper>
@@ -46,30 +44,28 @@ function Recipie() {
         </Button>
         {activeTab === "instructions" && (
           <div>
-            Yo
-            {/* <h3 dangerouslySetInnerHTML={{ __html: details.summary }}></h3>
-            <h3 dangerouslySetInnerHTML={{ __html: details.instructions }}></h3> */}
+            <h3 dangerouslySetInnerHTML={{ __html: details.summary }}></h3>
+            <h3 dangerouslySetInnerHTML={{ __html: details.instructions }}></h3>
           </div>
         )}
         {activeTab === "ingredients" && (
           <ul>
-            No
             {/* {details.extendedIngredients.map((ingredient) => {
               <li key={ingredient.id}>{ingredient.original}</li>;
             })} */}
             {/* {details.extendedIngredients.map((ingredient) => (
               <li key={ingredient.id}>{ingredient.original}</li>
             ))}*/}
-            {/* {details.extendedIngredients.map((ingredient) => {
+            {details.extendedIngredients.map((ingredient) => {
               if (ingredient.id)
-                return <li key={ingredient.id}>{ingredient.original}</li>;
-              else return null;
-            })} */}
+                return <li key={ingredient.id}>{ingredient.original}</li>
+              else return null
+            })}
           </ul>
         )}
       </Info>
     </DetailWrapper>
-  );
+  )
 }
 
 const DetailWrapper = styled.div`
@@ -91,7 +87,7 @@ const DetailWrapper = styled.div`
   ul {
     margin-top: 2rem;
   }
-`;
+`
 
 const Button = styled.button`
   padding: 1rem 2rem;
@@ -100,10 +96,10 @@ const Button = styled.button`
   border: 2px solid black;
   margin-right: 2rem;
   font-weight: 600;
-`;
+`
 
 const Info = styled.div`
   margin-left: 10rem;
-`;
+`
 
-export default Recipie;
+export default Recipie

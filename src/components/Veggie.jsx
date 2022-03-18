@@ -1,36 +1,40 @@
-import { React, useEffect, useState } from "react";
-import styled from "styled-components";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import PlaceHolder from "./1.png";
-import { Link } from "react-router-dom";
-
+import { React, useEffect, useState } from "react"
+import styled from "styled-components"
+import { Splide, SplideSlide } from "@splidejs/react-splide"
+import "@splidejs/splide/dist/css/themes/splide-default.min.css"
+import PlaceHolder from "./1.png"
+import { Link } from "react-router-dom"
+import fetch from "../utils/FetchInfo"
+import { SpinnerRoundOutlined } from "spinners-react"
+import veggie1 from "../css/veggie1.css"
 const Veggie = () => {
-  const [veggie, setVeggie] = useState([]);
+  const [veggie, setVeggie] = useState([])
 
   useEffect(() => {
-    getVeggie();
-  }, []);
+    getVeggie()
+  }, [])
 
   const getVeggie = async () => {
-    const check = localStorage.getItem("veggie");
-    if (check) {
-      setVeggie(JSON.parse(check));
-    } else {
-      const api = await fetch(
-        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9&tags=vegetarian`
-      );
-      const data = await api.json();
-      localStorage.setItem("veggie", JSON.stringify(data.recipes));
-      setVeggie(data.recipes);
+    // const check = localStorage.getItem("veggie")
+    // if (check) {
+    //   setVeggie(JSON.parse(check))
+    // } else {
+    const data = await fetch({ category: "veggie-picks", delayTime: 9000 })
+    // const api = await fetch(
+    //   `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9&tags=vegetarian`
+    // )
+    if (data) {
+      localStorage.setItem("veggie", JSON.stringify(data.recipes))
+      setVeggie(data.recipes)
     }
-  };
-
+  }
+  console.log(veggie)
   return (
     <div>
       <Wrapper>
         <h3>Veggie Picks</h3>
         <Splide
+          className="loader"
           options={{
             perPage: 3,
             arrows: false,
@@ -39,31 +43,42 @@ const Veggie = () => {
             gap: "5rem",
           }}
         >
-          {veggie.map((recipe) => {
-            return (
-              <SplideSlide key={recipe.id}>
-                <Card>
-                  <Link to={"/recipe/" + recipe.id}>
-                    <p>{recipe.title}</p>
-                    <img
-                      src={recipe.image ? recipe.image : PlaceHolder}
-                      alt={recipe.title}
-                    ></img>
-                    <Gredients />
-                  </Link>
-                </Card>
-              </SplideSlide>
-            );
-          })}
+          {!veggie || veggie.length === 0 ? (
+            <div>
+              <SpinnerRoundOutlined
+                size={50}
+                thickness={100}
+                speed={82}
+                color="rgba(57, 172, 87, 1)"
+              />
+            </div>
+          ) : (
+            veggie.map((recipe) => {
+              return (
+                <SplideSlide key={recipe.id}>
+                  <Card>
+                    <Link to={"/recipe/" + recipe.id}>
+                      <p>{recipe.title}</p>
+                      <img
+                        src={recipe.image ? recipe.image : PlaceHolder}
+                        alt={recipe.title}
+                      ></img>
+                      <Gredients />
+                    </Link>
+                  </Card>
+                </SplideSlide>
+              )
+            })
+          )}
         </Splide>
       </Wrapper>
     </div>
-  );
-};
+  )
+}
 
 const Wrapper = styled.div`
   margin: 4rem 0rem;
-`;
+`
 
 const Card = styled.div`
   min-height: 25rem;
@@ -94,7 +109,7 @@ const Card = styled.div`
     font-weight: 600;
     font-size: 1rem;
   }
-`;
+`
 
 const Gredients = styled.div`
   z-index: 3;
@@ -102,6 +117,6 @@ const Gredients = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-`;
+`
 
-export default Veggie;
+export default Veggie

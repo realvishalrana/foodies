@@ -1,36 +1,42 @@
-import { React, useEffect, useState } from "react";
-
+import { React, useEffect, useState } from "react"
 // require("dotenv").config();
-import styled from "styled-components";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import { Link } from "react-router-dom";
-function Popular() {
-  const [popular, setPopular] = useState([]);
+import styled from "styled-components"
+import { Splide, SplideSlide } from "@splidejs/react-splide"
+import "@splidejs/splide/dist/css/themes/splide-default.min.css"
+import { Link } from "react-router-dom"
+import fetch from "../utils/FetchInfo"
+import { SpinnerRoundOutlined } from "spinners-react"
+import veggie1 from "../css/veggie1.css"
+import PlaceHolder from "./1.png"
+
+const Popular = () => {
+  const [popular, setPopular] = useState([])
 
   useEffect(() => {
-    getPopular();
-  }, []);
+    getPopular()
+  }, [])
 
   const getPopular = async () => {
-    const check = localStorage.getItem("popular");
-    if (check) {
-      setPopular(JSON.parse(check));
-    } else {
-      const api = await fetch(
-        `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9`
-      );
-      const data = await api.json();
-      localStorage.setItem("popular", JSON.stringify(data.recipes));
-      setPopular(data.recipes);
+    // const check = localStorage.getItem("veggie")
+    // if (check) {
+    //   setVeggie(JSON.parse(check))
+    // } else {
+    const data = await fetch({ category: "popular-picks", delayTime: 5000 })
+    // const api = await fetch(
+    //   `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9&tags=vegetarian`
+    // )
+    if (data) {
+      localStorage.setItem("popular", JSON.stringify(data.recipes))
+      setPopular(data.recipes)
     }
-  };
+  }
 
   return (
     <div>
       <Wrapper>
         <h3>Popular Picks</h3>
         <Splide
+          className="loader"
           options={{
             perPage: 4,
             arrows: false,
@@ -39,29 +45,43 @@ function Popular() {
             gap: "5rem",
           }}
         >
-          {popular.map((recipe) => {
-            return (
-              <SplideSlide key={recipe.id}>
-                <Card>
-                  <Link to={"/recipe/" + recipe.id}>
-                    <p>{recipe.title}</p>
-                    <img src={recipe.image} alt={recipe.title}></img>
-                    <Gredients />
-                  </Link>
-                </Card>
-              </SplideSlide>
-            );
-          })}
+          {!popular || popular.length === 0 ? (
+            <div>
+              <SpinnerRoundOutlined
+                size={50}
+                thickness={100}
+                speed={82}
+                color="rgba(57, 172, 87, 1)"
+              />
+            </div>
+          ) : (
+            popular.map((recipe) => {
+              return (
+                <SplideSlide key={recipe.id}>
+                  <Card>
+                    <Link to={"/recipe/" + recipe.id}>
+                      <p>{recipe.title}</p>
+                      <img
+                        src={recipe.image ? recipe.image : PlaceHolder}
+                        alt={recipe.title}
+                      ></img>
+                      <Gredients />
+                    </Link>
+                  </Card>
+                </SplideSlide>
+              )
+            })
+          )}
         </Splide>
       </Wrapper>
       );
     </div>
-  );
+  )
 }
 
 const Wrapper = styled.div`
   margin: 4rem 0rem;
-`;
+`
 
 const Card = styled.div`
   min-height: 25rem;
@@ -92,7 +112,7 @@ const Card = styled.div`
     font-weight: 600;
     font-size: 1rem;
   }
-`;
+`
 
 const Gredients = styled.div`
   z-index: 3;
@@ -100,6 +120,6 @@ const Gredients = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
-`;
+`
 
-export default Popular;
+export default Popular

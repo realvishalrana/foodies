@@ -1,0 +1,9 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  min-height: 20vh;
+}
+
+h3 {
+  text-align: center;
+}

@@ -3661,4 +3661,4 @@ export const data = {
         "https://spoonacular.com/lemon-and-honey-chicken-649503",
     },
   ],
-};
+}
