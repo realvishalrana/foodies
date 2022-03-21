@@ -14,7 +14,7 @@ function App() {
           <GiKnifeFork></GiKnifeFork>
           <Logo to={"/"}>delicious</Logo>
         </Nav>
-        <Search />
+        {/* <Search /> */}
         <Category />
         <Pages />
       </BrowserRouter>

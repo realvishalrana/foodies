@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router";
-// npm install history@5 react-router-dom@6
 
 function Search() {
   const [input, setInput] = useState("");

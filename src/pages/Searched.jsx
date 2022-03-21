@@ -3,20 +3,34 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import fetch from "../utils/FetchInfo";
+import { SpinnerRoundOutlined } from "spinners-react";
+import veggie1 from "../css/veggie1.css";
+
 const Searched = () => {
   const [searchedRecipes, setSearchedRecipes] = useState([]);
   let params = useParams();
-  const getSearched = async (name) => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_RECIPES_API}&query =${name}`
-    );
-    const recipe = await data.json();
-    setSearchedRecipes(recipe.results);
+  let found = params.search;
+
+  const getSearched = async () => {
+    const data = await fetch({ category: found });
+    if (data) {
+      localStorage.setItem("searchedRecipes", JSON.stringify(data.recipes));
+      setSearchedRecipes(data.recipes);
+    }
   };
 
+  // const getSearched = async (name) => {
+  //   const data = await fetch();
+
+  // `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_RECIPES_API}&query =${name}`
+  //   const recipe = await data.json();
+  //   setSearchedRecipes(recipe.results);
+  // };
+
   useEffect(() => {
-    getSearched(params.serach);
-  }, [params.search]);
+    getSearched(found);
+  }, [found]);
 
   return (
     <Grid>

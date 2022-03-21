@@ -1,27 +1,44 @@
-import React from "react"
-import { useState, useEffect } from "react"
-import styled from "styled-components"
-import { useParams } from "react-router-dom"
+import React from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import response from "../utils/FetchInfo";
 
+const { gereralDetailsById } = response;
 function Recipie() {
-  const [details, setDetails] = useState({})
-  const [activeTab, setActiveTab] = useState("instructions")
-  let params = useParams()
+  const [details, setDetails] = useState({});
+  const [activeTab, setActiveTab] = useState("instructions");
+  let params = useParams();
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const data = await fetch(
-        `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_RECIPES_API}`
-      )
-      const detailsData = await data.json()
-      setDetails(detailsData)
-      // console.log(detailsData);
-    }
-    //ingredients not work
+      console.log(params.name);
+      const data = await gereralDetailsById(params.name);
+      console.log(data);
+      if (data) {
+        localStorage.setItem("details", JSON.stringify(data));
+        setDetails(data);
+      }
+    };
     if (params.name) {
-      fetchDetails()
+      fetchDetails();
     }
-  }, [params.name])
+  }, [params.name]);
+
+  // useEffect(() => {
+  //   const fetchDetails = async () => {
+  //     const data = await fetch(
+  //       `https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_RECIPES_API}`
+  //     );
+  //     const detailsData = await data.json();
+  //     setDetails(detailsData);
+  //     // console.log(detailsData);
+  //   };
+  //   //ingredients not work
+  //   if (params.name) {
+  //     fetchDetails();
+  //   }
+  // }, [params.name]);
 
   return (
     <DetailWrapper>
@@ -58,14 +75,14 @@ function Recipie() {
             ))}*/}
             {details.extendedIngredients.map((ingredient) => {
               if (ingredient.id)
-                return <li key={ingredient.id}>{ingredient.original}</li>
-              else return null
+                return <li key={ingredient.id}>{ingredient.original}</li>;
+              else return null;
             })}
           </ul>
         )}
       </Info>
     </DetailWrapper>
-  )
+  );
 }
 
 const DetailWrapper = styled.div`
@@ -87,7 +104,7 @@ const DetailWrapper = styled.div`
   ul {
     margin-top: 2rem;
   }
-`
+`;
 
 const Button = styled.button`
   padding: 1rem 2rem;
@@ -96,10 +113,10 @@ const Button = styled.button`
   border: 2px solid black;
   margin-right: 2rem;
   font-weight: 600;
-`
+`;
 
 const Info = styled.div`
   margin-left: 10rem;
-`
+`;
 
-export default Recipie
+export default Recipie;

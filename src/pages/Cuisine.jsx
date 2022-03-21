@@ -2,10 +2,11 @@ import { useState, React, useEffect } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
-import fetchCuisine from "../utils/FetchInfo";
+import response from "../utils/FetchInfo";
 import { SpinnerRoundOutlined } from "spinners-react";
-import veggie1 from "../css/veggie1.css";
 import { Splide } from "@splidejs/react-splide";
+
+const { fetch } = response;
 
 function Cuisine() {
   const [cuisine, setCuisine] = useState([]);
@@ -17,23 +18,34 @@ function Cuisine() {
     getCuisine(paramsValue);
     // console.log(params.type);
   }, [paramsValue]);
-
   const getCuisine = async () => {
-    const data = await fetchCuisine({ category: paramsValue });
+    const data = await fetch({ category: paramsValue });
+
+    console.log(data);
+    // if (data) {
+    //   localStorage.setItem("cuisine", JSON.stringify(data));
+    //   setCuisine(data.results);
+    //   console.log(data.results);
+    // }
+
     if (data) {
-      localStorage.setItem("cuisine", JSON.stringify(data));
-      setCuisine(data.results);
+      let cuisineArray = data.map((obj) => ({
+        image: obj.value.image,
+        title: obj.value.title,
+        id: obj.id,
+      }));
+      // localStorage.setItem("cuisine", JSON.stringify(data.recipes));
+      setCuisine(cuisineArray);
     }
   };
 
   // const getCuisine = async (name) => {
-  //   const data = await fetchCuisine(
+  //   const data = await fetch(
   //     `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_RECIPES_API}&cuisine=${name}`
   //   );
   //   const recipe = await data.json();
   //   setCuisine(recipe.results);
   // };
-
   return (
     <div>
       <Splide
@@ -66,9 +78,10 @@ function Cuisine() {
               cuisine.map((item) => {
                 return (
                   <Card key={item.id}>
-                    <Link to={"/recipe/" + item.id}></Link>
-                    <img src={item.image} alt="" />
-                    <h4>{item.title}</h4>
+                    <Link to={"/recipe/" + item.id}>
+                      <h4>{item.title}</h4>
+                      <img src={item.image} alt="" />
+                    </Link>
                   </Card>
                 );
               })}

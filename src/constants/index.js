@@ -1,10 +1,10 @@
 import { data as veggiePicks } from "./veggie-picks";
 import { data as popularPicks } from "./popular-picks";
-import { data as infomation } from "./information";
-import { data as american } from "./american";
-import { data as japanese } from "./japanese";
-import { data as thai } from "./thai";
-
+import { data as infomation } from "./recipie-information";
+import { data as american } from "./american-info";
+import { data as japanese } from "./japanese-info";
+import { data as thai } from "./thai-info";
+import { data as gereralDetails } from "./gernaral-details";
 const data = {
   veggiePicks,
   popularPicks,
@@ -12,6 +12,7 @@ const data = {
   american,
   japanese,
   thai,
+  gereralDetails,
 };
 
 export default data;

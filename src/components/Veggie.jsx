@@ -2,11 +2,14 @@ import { React, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import PlaceHolder from "./1.png";
+import PlaceHolder from "../img/1.png";
 import { Link } from "react-router-dom";
-import fetch from "../utils/FetchInfo";
+import response from "../utils/FetchInfo";
 import { SpinnerRoundOutlined } from "spinners-react";
 import veggie1 from "../css/veggie1.css";
+
+const { fetch } = response;
+
 const Veggie = () => {
   const [veggie, setVeggie] = useState([]);
 
@@ -19,10 +22,15 @@ const Veggie = () => {
     // if (check) {
     //   setVeggie(JSON.parse(check))
     // } else {
-    const data = await fetch({ category: "veggie-picks", delayTime: 9000 });
+    const data = await fetch({ category: "veggie-picks", delayTime: 1000 });
+    // if (data) {
+    //   localStorage.setItem("veggie", JSON.stringify(data.recipes));
+    //   setVeggie(data.recipes);
+    // }
     // const api = await fetch(
     //   `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9&tags=vegetarian`
-    // )
+    // );
+    // const data = await api.json();
     if (data) {
       localStorage.setItem("veggie", JSON.stringify(data.recipes));
       setVeggie(data.recipes);
