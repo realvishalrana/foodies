@@ -6,7 +6,7 @@ import PlaceHolder from "../img/1.png";
 import { Link } from "react-router-dom";
 import response from "../utils/FetchInfo";
 import { SpinnerRoundOutlined } from "spinners-react";
-import veggie1 from "../css/veggie1.css";
+import "../css/veggie1.css";
 
 const { fetch } = response;
 
@@ -22,7 +22,7 @@ const Veggie = () => {
     // if (check) {
     //   setVeggie(JSON.parse(check))
     // } else {
-    const data = await fetch({ category: "veggie-picks", delayTime: 1000 });
+    const data = await fetch({ category: "veggie-picks", delayTime: 3000 });
     // if (data) {
     //   localStorage.setItem("veggie", JSON.stringify(data.recipes));
     //   setVeggie(data.recipes);
@@ -32,7 +32,7 @@ const Veggie = () => {
     // );
     // const data = await api.json();
     if (data) {
-      localStorage.setItem("veggie", JSON.stringify(data.recipes));
+      // localStorage.setItem("veggie", JSON.stringify(data.recipes));
       setVeggie(data.recipes);
     }
   };
@@ -85,6 +85,10 @@ const Veggie = () => {
 
 const Wrapper = styled.div`
   margin: 4rem 0rem;
+  @media screen and (min-width: 380) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Card = styled.div`

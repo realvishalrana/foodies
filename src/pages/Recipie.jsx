@@ -16,7 +16,7 @@ function Recipie() {
       const data = await gereralDetailsById(params.name);
       console.log(data);
       if (data) {
-        localStorage.setItem("details", JSON.stringify(data));
+        // localStorage.setItem("details", JSON.stringify(data));
         setDetails(data);
       }
     };

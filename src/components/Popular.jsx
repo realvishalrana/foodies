@@ -6,7 +6,7 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { Link } from "react-router-dom";
 import response from "../utils/FetchInfo";
 import { SpinnerRoundOutlined } from "spinners-react";
-import veggie1 from "../css/veggie1.css";
+// import veggie1 from "../css/veggie1.css";
 import PlaceHolder from "../img/1.png";
 
 const { fetch } = response;
@@ -23,12 +23,12 @@ const Popular = () => {
     // if (check) {
     //   setVeggie(JSON.parse(check))
     // } else {
-    const data = await fetch({ category: "popular-picks", delayTime: 1000 });
+    const data = await fetch({ category: "popular-picks", delayTime: 3000 });
     // const api = await fetch(
     //   `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API}&number=9&tags=vegetarian`
     // )
     if (data) {
-      localStorage.setItem("popular", JSON.stringify(data.recipes));
+      // localStorage.setItem("popular", JSON.stringify(data.recipes));
       setPopular(data.recipes);
     }
   };
@@ -113,6 +113,11 @@ const Card = styled.div`
     height: 40%;
     font-weight: 600;
     font-size: 1rem;
+  }
+  ${
+    "" /* @media (min-width: 768px) {
+
+  } */
   }
 `;
 

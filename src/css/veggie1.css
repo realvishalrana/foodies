@@ -7,3 +7,10 @@
 h3 {
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .splide__slide {
+    margin-right: 15px !important;
+    width: 15rem !important;
+  }
+}

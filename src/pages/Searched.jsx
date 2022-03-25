@@ -15,7 +15,7 @@ const Searched = () => {
   const getSearched = async () => {
     const data = await fetch({ category: found });
     if (data) {
-      localStorage.setItem("searchedRecipes", JSON.stringify(data.recipes));
+      // localStorage.setItem("searchedRecipes", JSON.stringify(data.recipes));
       setSearchedRecipes(data.recipes);
     }
   };
