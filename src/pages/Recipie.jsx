@@ -47,18 +47,20 @@ function Recipie() {
         <img src={details.image} alt="" />
       </div>
       <Info>
-        <Button
-          className={activeTab === "instructions" ? "active" : ""}
-          onClick={() => setActiveTab("instructions")}
-        >
-          Instructions
-        </Button>
-        <Button
-          className={activeTab === "ingredients" ? "active" : ""}
-          onClick={() => setActiveTab("ingredients")}
-        >
-          Ingredients
-        </Button>
+        <div>
+          <Button
+            className={activeTab === "instructions" ? "active" : ""}
+            onClick={() => setActiveTab("instructions")}
+          >
+            Instructions
+          </Button>
+          <Button
+            className={activeTab === "ingredients" ? "active" : ""}
+            onClick={() => setActiveTab("ingredients")}
+          >
+            Ingredients
+          </Button>
+        </div>
         {activeTab === "instructions" && (
           <div>
             <h3 dangerouslySetInnerHTML={{ __html: details.summary }}></h3>
@@ -104,6 +106,13 @@ const DetailWrapper = styled.div`
   ul {
     margin-top: 2rem;
   }
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    .img {
+      height: 161px;
+    }
+  }
 `;
 
 const Button = styled.button`
@@ -113,6 +122,10 @@ const Button = styled.button`
   border: 2px solid black;
   margin-right: 2rem;
   font-weight: 600;
+  @media screen and (max-width: 768px) {
+    margin-top: 3rem;
+    ${"" /* float: left; */}
+  }
 `;
 
 const Info = styled.div`

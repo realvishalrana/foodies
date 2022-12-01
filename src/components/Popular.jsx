@@ -6,7 +6,7 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { Link } from "react-router-dom";
 import response from "../utils/FetchInfo";
 import { SpinnerRoundOutlined } from "spinners-react";
-// import veggie1 from "../css/veggie1.css";
+import veggie1 from "../css/veggie1.css";
 import PlaceHolder from "../img/1.png";
 
 const { fetch } = response;
@@ -40,7 +40,7 @@ const Popular = () => {
         <Splide
           className="loader"
           options={{
-            perPage: 4,
+            perPage: 3,
             arrows: false,
             pagination: false,
             drag: "free",
@@ -76,7 +76,6 @@ const Popular = () => {
           )}
         </Splide>
       </Wrapper>
-      );
     </div>
   );
 };
@@ -113,11 +112,6 @@ const Card = styled.div`
     height: 40%;
     font-weight: 600;
     font-size: 1rem;
-  }
-  ${
-    "" /* @media (min-width: 768px) {
-
-  } */
   }
 `;
 
