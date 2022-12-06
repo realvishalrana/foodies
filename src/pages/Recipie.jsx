@@ -12,9 +12,7 @@ function Recipie() {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      console.log(params.name);
       const data = await gereralDetailsById(params.name);
-      console.log(data);
       if (data) {
         // localStorage.setItem("details", JSON.stringify(data));
         setDetails(data);
@@ -32,9 +30,9 @@ function Recipie() {
   //     );
   //     const detailsData = await data.json();
   //     setDetails(detailsData);
-  //     // console.log(detailsData);
+  // console.log(detailsData);
   //   };
-  //   //ingredients not work
+  //ingredients not work
   //   if (params.name) {
   //     fetchDetails();
   //   }

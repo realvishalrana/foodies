@@ -16,12 +16,10 @@ function Cuisine() {
 
   useEffect(() => {
     getCuisine(paramsValue);
-    // console.log(params.type);
   }, [paramsValue]);
   const getCuisine = async () => {
     const data = await fetch({ category: paramsValue });
 
-    console.log(data);
     // if (data) {
     //   localStorage.setItem("cuisine", JSON.stringify(data));
     //   setCuisine(data.results);

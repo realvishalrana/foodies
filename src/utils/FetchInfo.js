@@ -56,7 +56,6 @@ const gereralDetailsById = async (idProp) => {
   for (let i = 0; i < mergedArray.length; i++) {
     if (mergedArray[i].id === parseInt(idProp)) {
       x = mergedArray[i];
-      console.log(x);
     }
   }
   return x.value;
